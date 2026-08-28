@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-lab',
@@ -6,4 +6,14 @@ import { Component } from '@angular/core';
   templateUrl: './lab.html',
   styleUrl: './lab.css',
 })
-export class Lab {}
+export class Lab {
+  research = signal(0)
+  money = signal(0)
+
+  addResearch() {
+    this.research.update(cur => cur + 1)
+  }
+  addMoney() {
+    this.money.update(cur => cur + 1)
+  }
+}
