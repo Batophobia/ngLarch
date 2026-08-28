@@ -1,8 +1,8 @@
 <h1>Welcome to the lab, Professor Larch</h1>
 
 <div>
-  <p>Research: {{ research() }}</p>
-  <p>Money: ${{ money() }}</p>
+  <p>Research: {{ game.research() }}</p>
+  <p>Money: ${{ game.money() }}</p>
   <button (click)="addResearch()">Research</button>
   <button (click)="addMoney()">Work</button>
 </div>
@@ -10,11 +10,9 @@
 <h2>Pokémon</h2>
 
 <ul>
-  @for (owned of pokemon; track owned.speciesId) {
-  @if (pokemonService.getById(owned.speciesId); as species) {
+  @for (owned of game.ownedPokemon(); track owned.species?.id) {
   <li>
-    {{ species.name }} × {{ owned.quantity }}
+    {{ owned.species?.name }} x{{ owned.quantity }}
   </li>
-  }
   }
 </ul>
