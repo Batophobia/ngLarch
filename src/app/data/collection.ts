@@ -2,7 +2,7 @@ import { PokeOwned } from "../models/poke-owned";
 
 export const STARTING_POKEMON: PokeOwned[] = [
   {
-    speciesId: 19,
+    speciesId: 16,
     quantity: 5,
     assignments: [
       {
@@ -10,14 +10,14 @@ export const STARTING_POKEMON: PokeOwned[] = [
         quantity: 3
       },
       {
-        jobId: 'delivery',
+        jobId: 'delivery-01',
         quantity: 2
       }
     ]
 
   },
   {
-    speciesId: 16,
+    speciesId: 19,
     quantity: 3,
     assignments: [
       {

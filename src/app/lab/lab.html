@@ -16,3 +16,13 @@
   </li>
   }
 </ul>
+
+<h2>Jobs</h2>
+
+<ul>
+  @for (job of game.unlockedJobs(); track job) {
+  <li>
+    {{ job }}
+  </li>
+  }
+</ul>
