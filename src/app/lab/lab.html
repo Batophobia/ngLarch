@@ -6,3 +6,15 @@
   <button (click)="addResearch()">Research</button>
   <button (click)="addMoney()">Work</button>
 </div>
+
+<h2>Pokémon</h2>
+
+<ul>
+  @for (owned of pokemon; track owned.speciesId) {
+  @if (pokemonService.getById(owned.speciesId); as species) {
+  <li>
+    {{ species.name }} × {{ owned.quantity }}
+  </li>
+  }
+  }
+</ul>
