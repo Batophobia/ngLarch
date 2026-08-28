@@ -16,4 +16,11 @@ export class GameService {
   readonly ownedPokemon = computed(() =>
     this.pokemon().map(owned => ({ quantity: owned.quantity, species: this.pokemonService.getById(owned.speciesId) }))
   )
+
+  assignPokemon(speciesId: number, jobId: string, quantity: number) {
+
+  }
+  unassignPokemon(speciesId: number, jobId: string, quantity: number) {
+
+  }
 }
