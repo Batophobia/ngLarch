@@ -124,8 +124,8 @@ export class GameService {
 
   getAvailableJobsForPokemon(speciesId: number) {
     const types = this.pokemonService.getById(speciesId)?.types;
-    if (!types || types.length < 1) return;
+    if (!types || types.length < 1) return [];
 
-    return this.jobService.getEligibleJobs(types);
+    return this.jobService.getEligibleJobs(types).filter(job => this.unlockedJobs().includes(job.id))
   }
 }

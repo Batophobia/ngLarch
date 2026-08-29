@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { GameService } from '../services/game';
+import { PokeAssignment } from '../models/poke-assignment';
 
 @Component({
   selector: 'app-pokemon',
@@ -7,22 +8,19 @@ import { GameService } from '../services/game';
   templateUrl: './pokemon.html',
   styleUrl: './pokemon.css'
 })
-export class Pokemon {
+export class PokemonCollection {
   readonly game = inject(GameService);
 
-  assignPidgeyToResearch() {
-    this.game.assignPokemon(
-      16,
-      'general-research',
-      1
-    );
+  assignToJob(speciesId: number, jobId: string, quantity = 1) {
+    this.game.assignPokemon(speciesId, jobId, quantity);
   }
 
-  unassignPidgeyFromResearch() {
-    this.game.unassignPokemon(
-      16,
-      'general-research',
-      1
-    );
+  unassignFromJob(speciesId: number, jobId: string, quantity = 1) {
+    this.game.unassignPokemon(speciesId, jobId, quantity);
   }
+
+  getAssignedQuantity(assignments: PokeAssignment[], jobId: string): number {
+    return assignments.find(assignment => assignment.jobId === jobId)?.quantity ?? 0;
+  }
+
 }

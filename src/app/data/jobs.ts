@@ -21,5 +21,15 @@ export const JOBS: Job[] = [
       money: 1,
       research: 0
     }
+  },
+  {
+    id: 'delivery-02',
+    name: 'Medium Deliveries',
+    description: 'Help local businesses with more deliveries.',
+    allowedTypes: ['flying'],
+    production: {
+      money: 1,
+      research: 0
+    }
   }
 ];
