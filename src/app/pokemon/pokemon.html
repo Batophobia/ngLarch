@@ -1,0 +1,29 @@
+<h2>Pokémon</h2>
+
+@for (owned of game.ownedPokemon(); track owned.speciesId) {
+<section>
+  <h3>
+    {{ owned.species?.name }} x{{ owned.quantity }}
+  </h3>
+
+  <p>
+    Available: {{ game.getUnassignedPokemon(owned.speciesId) }}
+    <button (click)="assignPidgeyToResearch()">+</button>
+    <button (click)="unassignPidgeyFromResearch()">-</button>
+  </p>
+
+  @if (owned.assignments.length > 0) {
+  <h4>Assignments</h4>
+
+  <ul>
+    @for (assignment of owned.assignments; track assignment.jobId) {
+    <li>
+      {{ assignment.jobId }} x{{ assignment.quantity }}
+    </li>
+    }
+  </ul>
+  } @else {
+  <p>No assignments.</p>
+  }
+</section>
+}

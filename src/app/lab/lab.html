@@ -7,15 +7,7 @@
   <button (click)="addMoney()">Work</button>
 </div>
 
-<h2>Pokémon</h2>
-
-<ul>
-  @for (owned of game.ownedPokemon(); track owned.species?.id) {
-  <li>
-    {{ owned.species?.name }} x{{ owned.quantity }}
-  </li>
-  }
-</ul>
+<app-pokemon></app-pokemon>
 
 <h2>Jobs</h2>
 

@@ -121,4 +121,11 @@ export class GameService {
 
     return true;
   }
+
+  getAvailableJobsForPokemon(speciesId: number) {
+    const types = this.pokemonService.getById(speciesId)?.types;
+    if (!types || types.length < 1) return;
+
+    return this.jobService.getEligibleJobs(types);
+  }
 }

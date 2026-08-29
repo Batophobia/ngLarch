@@ -1,9 +1,10 @@
+import { Pokemon } from '../pokemon/pokemon';
 import { GameService } from './../services/game';
 import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-lab',
-  imports: [],
+  imports: [Pokemon],
   templateUrl: './lab.html',
   styleUrl: './lab.css',
 })
