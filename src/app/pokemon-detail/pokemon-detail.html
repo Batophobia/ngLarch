@@ -1,16 +1,56 @@
-@if (pokemon; as pokemon) {
-<h2>{{ pokemon.name }}</h2>
+@if (species; as species) {
+<h2>{{ species.name }}</h2>
 
 <p>
-  ID: {{ pokemon.id }}
+  Pokédex ID: {{ species.id }}
 </p>
 
 <p>
   Type:
-  @for (type of pokemon.types; track type) {
+  @for (type of species.types; track type) {
   <span>{{ type }}</span>
   }
 </p>
+
+@if (owned(); as owned) {
+<h3>Your Pokémon</h3>
+
+<p>
+  Owned: {{ owned.quantity }}
+</p>
+
+<p>
+  Available: {{ game.getUnassignedPokemon(owned.speciesId) }}
+</p>
+
+<h4>Assignments</h4>
+
+@if (owned.assignments.length > 0) {
+<ul>
+  @for (assignment of owned.assignments; track assignment.jobId) {
+  <li>
+    <b>{{ assignment.jobId }}</b>: {{ assignment.quantity }}
+  </li>
+  }
+</ul>
+} @else {
+<p>No Pokémon assigned to jobs.</p>
+}
+} @else {
+<p>You don't currently own this Pokémon.</p>
+}
+
+<p>
+  <a routerLink="/pokemon">Back to Pokémon</a>
+</p>
 } @else {
 <h2>Pokémon Not Found</h2>
+
+<p>
+  No Pokémon exists with ID {{ pokemonId }}.
+</p>
+
+<p>
+  <a routerLink="/pokemon">Back to Pokémon</a>
+</p>
 }
