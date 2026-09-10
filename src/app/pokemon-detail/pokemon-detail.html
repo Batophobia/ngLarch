@@ -1,0 +1,16 @@
+@if (pokemon; as pokemon) {
+<h2>{{ pokemon.name }}</h2>
+
+<p>
+  ID: {{ pokemon.id }}
+</p>
+
+<p>
+  Type:
+  @for (type of pokemon.types; track type) {
+  <span>{{ type }}</span>
+  }
+</p>
+} @else {
+<h2>Pokémon Not Found</h2>
+}

@@ -3,7 +3,7 @@
 @for (owned of game.ownedPokemon(); track owned.speciesId) {
 <section>
   <h3>
-    {{ owned.species?.name }} [{{ owned.quantity }}]
+    <a [routerLink]="['/pokemon', owned.speciesId]">{{ owned.species?.name }}</a> [{{ owned.quantity }}]
   </h3>
 
   <p>
