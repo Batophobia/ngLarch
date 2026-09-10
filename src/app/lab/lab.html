@@ -6,15 +6,3 @@
   <button (click)="addResearch()">Research</button>
   <button (click)="addMoney()">Work</button>
 </div>
-
-<app-pokemon></app-pokemon>
-
-<h2>Jobs</h2>
-
-<ul>
-  @for (job of game.unlockedJobs(); track job) {
-  <li>
-    {{ job }}
-  </li>
-  }
-</ul>

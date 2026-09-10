@@ -1,0 +1,20 @@
+<h1>Jobs</h1>
+
+@for (jobId of game.unlockedJobs(); track jobId) {
+@let job = jobService.getById(jobId);
+
+@if (job) {
+<section>
+  <h2>{{ job.name }}</h2>
+
+  <p>{{ job.description }}</p>
+
+  <p>
+    Produces:
+    ${{ job.production.money }}
+    /
+    {{ job.production.research }} Research
+  </p>
+</section>
+}
+}
