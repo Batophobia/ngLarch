@@ -15,7 +15,7 @@ export const routes: Routes = [
     path: 'pokemon',
     component: PokemonCollection
   }, {
-    path: 'pokedex/:id',
+    path: 'pokemon/:id',
     component: PokemonDetail
     // }, {
     // path: 'pokedex',
