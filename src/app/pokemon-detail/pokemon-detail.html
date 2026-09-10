@@ -1,6 +1,9 @@
 @if (species; as species) {
 <h2>{{ species.name }}</h2>
 
+<img
+  src="https://www.serebii.net/pokemon/art/{{ species.id.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping: false}) }}.png" />
+
 <p>
   Pokédex ID: {{ species.id }}
 </p>
@@ -8,7 +11,7 @@
 <p>
   Type:
   @for (type of species.types; track type) {
-  <span>{{ type }}</span>
+  <span class="pokeType type-{{type}}">{{ type }}</span>
   }
 </p>
 
@@ -23,21 +26,17 @@
   Available: {{ game.getUnassignedPokemon(owned.speciesId) }}
 </p>
 
-<h4>Assignments</h4>
+<h4>Jobs</h4>
 
-@if (owned.assignments.length > 0) {
-<ul>
-  @for (assignment of owned.assignments; track assignment.jobId) {
-  <li>
-    <b>{{ assignment.jobId }}</b>: {{ assignment.quantity }}
-  </li>
-  }
-</ul>
-} @else {
-<p>No Pokémon assigned to jobs.</p>
+@for (job of game.getAvailableJobsForPokemon(pokemonId); track job.id) {
+<div>
+  <b>{{ job.name }}</b>
+
+  <button (click)="unassignFromJob(job.id)" [disabled]="getAssignedQuantity(job.id) <= 0">-</button>
+  {{ getAssignedQuantity(job.id) }}
+  <button (click)="assignToJob(job.id)" [disabled]="game.getUnassignedPokemon(pokemonId) <= 0">+</button>
+</div>
 }
-} @else {
-<p>You don't currently own this Pokémon.</p>
 }
 
 <p>

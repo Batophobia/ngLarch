@@ -23,4 +23,18 @@ export class PokemonDetail {
       pokemon => pokemon.speciesId === this.pokemonId
     )
   );
+
+  assignToJob(jobId: string, quantity = 1) {
+    this.game.assignPokemon(this.pokemonId, jobId, quantity);
+  }
+
+  unassignFromJob(jobId: string, quantity = 1) {
+    this.game.unassignPokemon(this.pokemonId, jobId, quantity);
+  }
+
+  getAssignedQuantity(jobId: string): number {
+    return this.owned()?.assignments.find(
+      assignment => assignment.jobId === jobId
+    )?.quantity ?? 0;
+  }
 }
