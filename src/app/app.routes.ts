@@ -3,11 +3,15 @@ import { Lab } from './lab/lab';
 import { Jobs } from './jobs/jobs';
 import { PokemonCollection } from './pokemon/pokemon';
 import { PokemonDetail } from './pokemon-detail/pokemon-detail';
+import { Store } from './store/store';
 
 export const routes: Routes = [
   {
     path: 'lab',
     component: Lab
+  }, {
+    path: 'store',
+    component: Store
   }, {
     path: 'jobs',
     component: Jobs

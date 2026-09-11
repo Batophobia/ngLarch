@@ -1,0 +1,32 @@
+<h1>Store</h1>
+
+<section>
+  <h2>Laboratory</h2>
+
+  <div>
+    <h3>Repair Lab</h3>
+    <p>Repair the laboratory so you can begin receiving Pokémon.</p>
+
+    @if (game.labRepaired()) {
+    <p>Purchased</p>
+    } @else {
+    <button (click)="repairLab()" [disabled]="game.money() < game.labRepairCost()">
+      Repair for ${{ game.labRepairCost() }}
+    </button>
+    }
+  </div>
+</section>
+
+<section>
+  <h2>Trainers</h2>
+
+  <div>
+    <h3>Hire Trainer</h3>
+    <p>Hire a trainer to begin bringing Pokémon to the laboratory.</p>
+    <p>Trainers: {{ game.trainers() }}</p>
+
+    <button (click)="hireTrainer()" [disabled]="game.research() < game.trainerCost()">
+      Hire for {{ game.trainerCost() }} Research
+    </button>
+  </div>
+</section>

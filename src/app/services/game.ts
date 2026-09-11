@@ -19,6 +19,11 @@ export class GameService {
     'delivery-01'
   ]);
 
+  readonly labRepaired = signal(false);
+  readonly trainers = signal(0);
+  readonly labRepairCost = signal(10);
+  readonly trainerCost = signal(5);
+
   readonly ownedPokemon = computed(() =>
     this.pokemon().map(owned => ({ ...owned, species: this.pokemonService.getById(owned.speciesId) }))
   )
@@ -157,5 +162,45 @@ export class GameService {
         }
       ];
     });
+  }
+
+  tick(): void {
+    let money = 0;
+    let research = 0;
+
+    for (const pokemon of this.pokemon()) {
+      for (const assignment of pokemon.assignments) {
+        const job = this.jobService.getById(assignment.jobId);
+
+        if (!job) continue;
+
+        money += job.production.money * assignment.quantity;
+        research += job.production.research * assignment.quantity;
+      }
+    }
+
+    this.money.update(value => value + money);
+    this.research.update(value => value + research);
+  }
+
+  repairLab(): boolean {
+    if (this.labRepaired()) return false;
+    if (this.money() < this.labRepairCost()) return false;
+
+    this.money.update(money => money - this.labRepairCost());
+    this.labRepaired.set(true);
+
+    return true;
+  }
+
+  hireTrainer(): boolean {
+    if (!this.labRepaired()) return false;
+    if (this.research() < this.trainerCost()) return false;
+
+    this.research.update(research => research - this.trainerCost());
+    this.trainers.update(trainers => trainers + 1);
+    this.trainerCost.update(cost => cost + 5);
+
+    return true;
   }
 }
