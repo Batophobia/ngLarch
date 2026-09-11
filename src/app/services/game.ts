@@ -128,4 +128,34 @@ export class GameService {
 
     return this.jobService.getEligibleJobs(types).filter(job => this.unlockedJobs().includes(job.id))
   }
+
+  addPokemon(speciesId: number, quantity = 1): void {
+    if (quantity <= 0) return;
+
+    this.pokemon.update(currentPokemon => {
+      const existing = currentPokemon.find(
+        pokemon => pokemon.speciesId === speciesId
+      );
+
+      if (existing) {
+        return currentPokemon.map(pokemon =>
+          pokemon.speciesId === speciesId
+            ? {
+              ...pokemon,
+              quantity: pokemon.quantity + quantity
+            }
+            : pokemon
+        );
+      }
+
+      return [
+        ...currentPokemon,
+        {
+          speciesId,
+          quantity,
+          assignments: []
+        }
+      ];
+    });
+  }
 }
