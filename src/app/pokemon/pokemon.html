@@ -1,31 +1,70 @@
 <h2>Pokémon</h2>
 
-@for (owned of game.ownedPokemon(); track owned.speciesId) {
-<section>
-  <h3>
-    <a [routerLink]="['/pokemon', owned.speciesId]">{{ owned.species?.name }}</a> [{{ owned.quantity }}]
-  </h3>
+<div class="filters">
+  <label>
+    Search:
+    <input type="search" placeholder="Pokémon name..." (input)="setSearch($event)" />
+  </label>
 
-  <p>
-    Available: {{ game.getUnassignedPokemon(owned.speciesId) }}
-  </p>
+  <label>
+    Show:
+    <select (change)="setFilter($event)">
+      <option value="all">All</option>
+      <option value="assigned">Assigned</option>
+      <option value="unassigned">Available</option>
+    </select>
+  </label>
+</div>
 
-  <h4>Jobs</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Pokémon</th>
+      <th>Owned</th>
+      <th>Available</th>
+      <th>Jobs</th>
+    </tr>
+  </thead>
 
-  <ul>
-    @for (job of game.getAvailableJobsForPokemon(owned.speciesId); track job.id) {
-    <li>
-      <b>{{ job.name }}</b> -
-      <span>
-        Assigned:
-        <button (click)="unassignFromJob(owned.speciesId, job.id)"
-          [disabled]="getAssignedQuantity(owned.assignments, job.id) <= 0">-</button>
-        {{ getAssignedQuantity(owned.assignments, job.id) }}
-        <button (click)="assignToJob(owned.speciesId, job.id)"
-          [disabled]="game.getUnassignedPokemon(owned.speciesId) <= 0">+</button>
-      </span>
-    </li>
+  <tbody>
+    @for (owned of pokemon(); track owned.speciesId) {
+    <tr>
+      <td>
+        <a [routerLink]="['/pokemon', owned.speciesId]">
+          {{ owned.species?.name }}
+        </a>
+      </td>
+
+      <td>
+        {{ owned.quantity }}
+      </td>
+
+      <td>
+        {{ game.getUnassignedPokemon(owned.speciesId) }}
+      </td>
+
+      <td>
+        @for (
+        job of game.getAvailableJobsForPokemon(owned.speciesId);
+        track job.id
+        ) {
+        @if (owned.assignments.find(a => a.jobId === job.id)?.quantity) {
+        <span>
+          {{ job.name }}:
+          {{ owned.assignments.find(a => a.jobId === job.id)?.quantity }}
+        </span>
+        }
+        }
+
+        @if (game.getUnassignedPokemon(owned.speciesId) === owned.quantity) {
+        <span>—</span>
+        }
+      </td>
+    </tr>
     }
-  </ul>
-</section>
+  </tbody>
+</table>
+
+@if (pokemon().length === 0) {
+<p>No Pokémon match your filters.</p>
 }
