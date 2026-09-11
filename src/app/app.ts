@@ -21,7 +21,9 @@ export class App {
     }, 5000);
 
     setInterval(() => {
-      this.pokemonGenerator.generate();
+      for (let i = 0; i < this.game.trainers(); i++) {
+        this.pokemonGenerator.generate();
+      }
     }, 60000);
   }
 }

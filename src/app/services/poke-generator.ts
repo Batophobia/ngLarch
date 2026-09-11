@@ -1,14 +1,10 @@
-import { inject, Injectable } from '@angular/core';
-
-import { PokemonService } from './pokemon';
+import { Injectable, inject } from '@angular/core';
 import { GameService } from './game';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class PokeGeneratorService {
-  private pokemonService = inject(PokemonService);
   private game = inject(GameService);
 
   private readonly startingPokemon = [
@@ -17,6 +13,8 @@ export class PokeGeneratorService {
   ];
 
   generate(): void {
+    if (!this.game.labRepaired()) return;
+
     const speciesId = this.startingPokemon[
       Math.floor(Math.random() * this.startingPokemon.length)
     ];

@@ -21,12 +21,16 @@
   <h2>Trainers</h2>
 
   <div>
-    <h3>Hire Trainer</h3>
-    <p>Hire a trainer to begin bringing Pokémon to the laboratory.</p>
+    @if (!game.labRepaired()) {
+    <p>Repair the laboratory before hiring trainers.</p>
+    } @else {
+    <h3>Recruit Trainer</h3>
+    <p>Recruit a trainer to begin bringing Pokémon to the laboratory.</p>
     <p>Trainers: {{ game.trainers() }}</p>
 
     <button (click)="hireTrainer()" [disabled]="game.research() < game.trainerCost()">
-      Hire for {{ game.trainerCost() }} Research
+      Recruit for {{ game.trainerCost() }} Research
     </button>
+    }
   </div>
 </section>
