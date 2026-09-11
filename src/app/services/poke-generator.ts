@@ -6,6 +6,7 @@ import { GameService } from './game';
 })
 export class PokeGeneratorService {
   private game = inject(GameService);
+  private trainerSuccessChance = 0.25;
 
   private readonly startingPokemon = [
     16, // Pidgey
@@ -14,6 +15,8 @@ export class PokeGeneratorService {
 
   generate(): void {
     if (!this.game.labRepaired()) return;
+
+    if (Math.random() >= this.trainerSuccessChance) return;
 
     const speciesId = this.startingPokemon[
       Math.floor(Math.random() * this.startingPokemon.length)

@@ -1,36 +1,18 @@
 <h1>Store</h1>
 
+@for (item of items(); track item.id) {
 <section>
-  <h2>Laboratory</h2>
+  <h2>{{ item.name }}</h2>
 
-  <div>
-    <h3>Repair Lab</h3>
-    <p>Repair the laboratory so you can begin receiving Pokémon.</p>
+  <p>{{ item.description }}</p>
 
-    @if (game.labRepaired()) {
-    <p>Purchased</p>
+  <button (click)="purchase(item.id)" [disabled]="!canAfford(item.id)">
+    Purchase for
+    @if (item.currency === 'money') {
+    ${{ getCost(item.id) }}
     } @else {
-    <button (click)="repairLab()" [disabled]="game.money() < game.labRepairCost()">
-      Repair for ${{ game.labRepairCost() }}
-    </button>
+    {{ getCost(item.id) }} Research
     }
-  </div>
+  </button>
 </section>
-
-<section>
-  <h2>Trainers</h2>
-
-  <div>
-    @if (!game.labRepaired()) {
-    <p>Repair the laboratory before hiring trainers.</p>
-    } @else {
-    <h3>Recruit Trainer</h3>
-    <p>Recruit a trainer to begin bringing Pokémon to the laboratory.</p>
-    <p>Trainers: {{ game.trainers() }}</p>
-
-    <button (click)="hireTrainer()" [disabled]="game.research() < game.trainerCost()">
-      Recruit for {{ game.trainerCost() }} Research
-    </button>
-    }
-  </div>
-</section>
+}

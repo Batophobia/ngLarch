@@ -19,6 +19,8 @@ export class GameService {
     'delivery-01'
   ]);
 
+  readonly purchasedStoreItems = signal<string[]>([]);
+
   readonly labRepaired = signal(false);
   readonly trainers = signal(0);
   readonly labRepairCost = signal(10);
@@ -189,6 +191,7 @@ export class GameService {
 
     this.money.update(money => money - this.labRepairCost());
     this.labRepaired.set(true);
+    this.purchasedStoreItems.update(items => [...items, 'repair-lab']);
 
     return true;
   }
@@ -202,5 +205,9 @@ export class GameService {
     this.trainerCost.update(cost => cost + 5);
 
     return true;
+  }
+
+  isStoreItemPurchased(itemId: string): boolean {
+    return this.purchasedStoreItems().includes(itemId);
   }
 }
